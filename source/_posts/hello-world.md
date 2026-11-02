@@ -1,33 +1,34 @@
 ---
-title: Hello World，博客正式开张
+title: 'Hello World — This Blog Is Finally Live'
 date: 2026-11-02 11:50:00
 categories:
-  - 随笔
+  - Random
 tags:
   - Hexo
-  - 开始
+  - Getting Started
 ---
 
-欢迎来到我的博客！这是第一篇文章。
+Welcome! This is the very first post on a blog that took an afternoon to go from an empty folder to a real website.
 
-## 这个博客是怎么搭的
+## What powers this thing
 
-- **框架**：[Hexo](https://hexo.io/) — 用 Markdown 写作，一条命令生成静态网页
-- **主题**：[Butterfly](https://github.com/jerryc127/hexo-theme-butterfly)
-- **托管**：GitHub Pages — 免费、稳定、无需维护服务器
+- **Framework**: [Hexo](https://hexo.io/) — write Markdown, generate static HTML
+- **Theme**: [Butterfly](https://github.com/jerryc127/hexo-theme-butterfly)
+- **Hosting**: GitHub Pages — free, fast, and nothing to maintain
 
-## 为什么写博客
+## Why write at all
 
-> 把学过的东西写出来，才算真的学会。
+> If you can't explain it in writing, you probably don't understand it yet.
 
-以后这里会记录我的技术笔记、踩坑记录和一些生活随想。
+This space is where I'll keep engineering notes, the bugs that cost me a whole evening, and the occasional stray thought that doesn't fit anywhere else.
 
-## 日常更新方式
+## Day-to-day workflow
 
 ```bash
-hexo new "文章标题"       # 新建一篇 Markdown 文章
-hexo clean && hexo generate   # 生成静态文件到 public/
-# 然后把 public/ 推送到 GitHub 仓库即可上线
+hexo new "Some Post Title"        # create a Markdown file
+./deploy.sh                       # build and publish
 ```
 
-感谢阅读，欢迎常来！🚀
+That's it. Two commands between an idea and a live URL.
+
+Thanks for stopping by. 🚀

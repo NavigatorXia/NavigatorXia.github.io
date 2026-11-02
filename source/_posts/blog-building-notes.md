@@ -1,78 +1,78 @@
 ---
-title: 从零到上线：我的博客是怎么搭起来的
+title: 'From Zero to Live: How I Built This Blog'
 date: 2026-11-02 17:00:00
 categories:
-  - 技术笔记
+  - Notes
 tags:
   - Hexo
   - GitHub Pages
-  - 建站
+  - Blogging
 ---
 
-> 花了一个下午，这个博客从空白文件夹变成了一个能在浏览器里打开的网站。这篇文章记录整个过程，给未来的自己，也给想动手的你。
+> One afternoon, an empty folder turned into a website you can open in a browser. This is the whole process — for my future self, and for anyone thinking about doing the same.
 
-## 为什么选择静态博客
+## Why a static blog
 
-市面上的建站方案很多：WordPress、语雀、知乎专栏、Notion……最后我选了最"程序员"的那条路——**静态博客**，理由很实际：
+There are plenty of options out there: WordPress, Medium, Notion, Substack. I picked the most "engineer" path — a **static blog** — for very practical reasons:
 
-- **完全免费**：GitHub Pages 托管，不花一分钱，也不用续费服务器
-- **写作体验**：就是写 Markdown 文件，跟写笔记没区别
-- **速度快**：纯静态 HTML，没有数据库、没有后端，加载飞快
-- **零运维**：没有服务器要打补丁，不用担心被黑
+- **Completely free**: hosted on GitHub Pages. No server bills, no renewals.
+- **Writing feels like note-taking**: plain Markdown files, nothing else.
+- **Fast**: pure static HTML. No database, no backend, no cold starts.
+- **Zero maintenance**: nothing to patch, nothing to get hacked.
 
-技术栈最终确定为：**Hexo + Butterfly 主题 + GitHub Pages**。
+The final stack: **Hexo + Butterfly theme + GitHub Pages**.
 
-## 搭建全流程
+## Step by step
 
-### 1. 环境准备
+### 1. Prerequisites
 
-需要的东西很少：Node.js 和 Git。装好后一条命令搞定 Hexo：
+Very little: Node.js and Git. Then one command installs Hexo:
 
 ```bash
 npm install -g hexo-cli
 hexo init blog && cd blog && npm install
 ```
 
-### 2. 挑主题
+### 2. Picking a theme
 
-Hexo 官网主题多到眼花，最后选了 [Butterfly](https://github.com/jerryc127/hexo-theme-butterfly)：颜值在线、功能齐全（评论、搜索、暗色模式都有）、中文文档详细。安装也很简单：
+The Hexo theme gallery is overwhelming. I settled on [Butterfly](https://github.com/jerryc127/hexo-theme-butterfly): good looks, batteries included (comments, search, dark mode), and thorough documentation. Installation is one line:
 
 ```bash
 npm install hexo-theme-butterfly
 ```
 
-然后在 `_config.yml` 里把 `theme` 改成 `butterfly` 就完事了。
+Then set `theme: butterfly` in `_config.yml`. Done.
 
-### 3. 部署到 GitHub Pages
+### 3. Deploying to GitHub Pages
 
-思路很简单：Hexo 把 Markdown 生成一堆 HTML 文件（在 `public/` 目录），推到 GitHub 仓库，GitHub 免费帮你托管。
+The idea is simple: Hexo compiles Markdown into a pile of HTML files in `public/`, you push that folder to a GitHub repository, and GitHub hosts it for free.
 
-仓库命名为 `用户名.github.io` 有个魔法：这个特定名字的仓库，站点直接挂在 `https://用户名.github.io` 根路径下，没有子路径前缀。
+There's one naming trick: a repository called `username.github.io` is served from the **root** of `https://username.github.io`, with no sub-path prefix. That's the one you want.
 
-本地只写了一个发布脚本，日常更新一条命令：
+Publishing is a single command:
 
 ```bash
 ./deploy.sh
 ```
 
-### 4. 想买的域名被占了
+### 4. The domain I wanted was taken
 
-本来想注册一个 `.me` 域名，一查——**已经被别人注册了**，还是个隐私保护账号，连持有人是谁都看不到。域名的世界，手慢无。不过这个不着急，先用免费的 `github.io` 跑起来，以后想买了再绑，Hexo 这边预留了 CNAME，切换是零成本的事。
+I had a `.me` domain in mind. Checked it — **already registered**, and the owner is behind a privacy service, so you can't even see who it is. That's how domains work: blink and it's gone. Not urgent though. Start free on `github.io`, attach the domain later — the CNAME is already prepared, so switching costs nothing.
 
-## 踩过的坑
+## Things that went wrong
 
-过程也不是一帆风顺，记录两个印象最深的：
+Two incidents worth remembering:
 
-1. **锁文件风暴**：本机的安全组件某次异常后，所有程序的文件删除操作被卡住，Git 依赖的锁文件（`index.lock`）删不掉，导致 `git commit` 完全瘫痪。排查了一圈发现是残留锁文件，清掉后瞬间恢复。教训：**遇到 "Another git process seems to be running"，先看锁文件的时间戳，八成是残留。**
+1. **The lock-file storm.** A local security component glitched and silently blocked every file deletion on the machine. Git depends on creating and removing lock files (`index.lock`), so `git commit` was completely dead. After a long detour, the culprit was a leftover lock file — delete it and everything recovered instantly. Lesson: **when Git says "Another git process seems to be running", check the lock file's timestamp first. It's almost always a leftover.**
 
-2. **npm 缓存权限**：`~/.npm` 目录属主异常导致安装报错，绕过方式是给 npm 指定一个临时缓存目录。
+2. **npm cache permissions.** An ownership problem in `~/.npm` broke installs. The workaround was pointing npm at a temporary cache directory.
 
-## 以后这里会写什么
+## What you'll find here
 
-- 🛠 技术笔记和踩坑记录（像这篇一样）
-- 📚 读过的书、看过的文章的思考
-- 🌱 一些生活随想
+- 🛠 Engineering notes and post-mortems (like this one)
+- 📚 Thoughts on books and articles worth keeping
+- 🌱 Occasional life updates
 
-> 写博客最大的好处不是给别人看，而是逼自己把模糊的理解整理成清晰的表达。能写明白，才是真的懂了。
+> The real benefit of a blog isn't an audience — it's the pressure to turn fuzzy understanding into clear writing. If you can explain it, you actually understand it.
 
-第一篇，就到这里。这个博客见。
+That's post number one. See you around.
